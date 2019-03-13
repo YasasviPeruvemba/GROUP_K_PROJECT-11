@@ -179,7 +179,7 @@ void setup(void) {
   });
   server.onNotFound(handleNotFound);
   server.begin();
-  Serial.print("Server Port is :");
+ // Serial.print("Server Port is :");
 //  Serial.println(server.localIP());
   Serial.println("HTTP server started");
 }
@@ -189,7 +189,7 @@ void loop(void) {
   MDNS.update();
 }
 
-void drawGraph() {
+/*void drawGraph() {
   String out = "";
   char temp[100];
   out += "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"400\" height=\"150\">\n";
@@ -205,4 +205,4 @@ void drawGraph() {
   out += "</g>\n</svg>\n";
 
   server.send(200, "image/svg+xml", out);
-}
+}*/
