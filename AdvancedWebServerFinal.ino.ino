@@ -165,7 +165,6 @@ void setup(void) {
   Serial.println("==========");
   Serial.println(line);
   Serial.println("==========");
-  Serial.println("closing connection");
   pinMode(led, OUTPUT);
   digitalWrite(led, 0);
 
