@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html {
+            font-family: Helvetica;
+            display: inline-block;
+            margin: 0px auto;
+            text-align: center;
+        }
+
+        .button {
+            background-color: #195B6A;
+            border: none;
+            color: white;
+            padding: 16px 40px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+</head>
+
+<body>
+    <h1>
+        ESP8266 Web Server!
+    </h1>
+    <p><button id="app" class="button" v-on:click="toggle">{{value}}</button></p>
+</body>
+<script>
+
+    var myObject = new Vue({
+        el: '#app',
+        data: { value: "unknown" },
+        mounted() {
+            var self = this;
+            window.exampleSocket = new WebSocket(`ws://${document.location.host}/admin`, "protocolOne");
+            window.exampleSocket.onopen = function (event) {
+                //window.exampleSocket.send("Here's some text that the server is urgently awaiting!");
+                window.exampleSocket.onmessage = function (event) {
+                    console.log(event.data);
+                    self.value = event.data;
+                }
+            };
+        },
+        methods: {
+            toggle: function (event) {
+                if (this.value == "false")
+                {
+                    this.value = "true";
+                    window.exampleSocket.send("false");
+                }
+                else
+                {
+                    this.value = "false";
+                    window.exampleSocket.send("true");
+                }
+    }
+        }
+    })
+</script>
+
+</html>
