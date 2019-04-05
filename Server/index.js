@@ -12,7 +12,7 @@ var expressWs = require('express-ws')(app);
 
 //app.set('view engine', 'html');
 
-let arduino_switch = "false"; 
+let arduino_switch = "OFF"; 
 let arduinoSocket;
 
 app.get('/', function(req, res){
@@ -22,13 +22,13 @@ app.get('/', function(req, res){
  
 app.get('/arduino_switch/on', function(req,res){
     arduino_switch = true;
-    arduinoSocket.send("true");
+    arduinoSocket.send("ON");
     res.redirect('/');
 })
 
 app.get('/arduino_switch/off', function(req,res){
     arduino_switch = false;
-    arduinoSocket.send("false");
+    arduinoSocket.send("OFF");
     res.redirect('/');
 })
 
@@ -43,10 +43,10 @@ app.ws('/arduino', function(ws, req) {
 const activeConnections = [];
 app.ws('/admin', function(ws, req) {
     activeConnections.push(ws);
-    if(arduino_switch=="false")
-      ws.send("true");
-    else if(arduino_switch=="true")
-      ws.send("false");
+    if(arduino_switch=="OFF")
+      ws.send("ON");
+    else if(arduino_switch=="ON")
+      ws.send("OFF");
     ws.on('message', function(msg) {
       arduino_switch = msg;
       arduinoSocket.send(msg);
@@ -54,10 +54,10 @@ app.ws('/admin', function(ws, req) {
       console.log(`sending to ${activeConnections.length} connections`);
       activeConnections.forEach((socket)=>{
         try{
-            if(arduino_switch=="false")
-            socket.send("true");
-            else if(arduino_switch=="true")
-            socket.send("false");
+            if(arduino_switch=="OFF")
+            socket.send("ON");
+            else if(arduino_switch=="ON")
+            socket.send("OFF");
         }catch(e){}
       });
     });
