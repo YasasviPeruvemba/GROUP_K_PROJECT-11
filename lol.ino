@@ -36,6 +36,7 @@ void setup() {
   //Initialise LED pin
   pinMode(2, OUTPUT);
   digitalWrite(2, HIGH);
+ 
  // Initialize the output variables as outputs
   pinMode(output5, OUTPUT);
   // Set outputs to LOW
