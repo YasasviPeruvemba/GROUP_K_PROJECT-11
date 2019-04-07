@@ -26,7 +26,7 @@ const char fingerprint[] PROGMEM = "53 40 64 12 9F F2 65 94 1D 50 6C 3B FE 4A D4
 //const char fingerprint[] PROGMEM = "";
  
 char path[] = "/arduino";
-char host[] = "10.250.2.88";
+char host[] = "https://mighty-anchorage-26613.herokuapp.com/";
  
 WebSocketClient webSocketClient;
 WiFiClient client;
